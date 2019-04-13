@@ -36,14 +36,15 @@ define(['jquery',
 		'text!templates/annotation.html',
 		'text!templates/metaTagsHighwirePress.html',
 		'uuid',
-		'views/MetricView'
+		'views/MetricView',
+		'views/AnnotationView'
 		],
 	function($, $ui, _, Backbone, gmaps, fancybox, Clipboard, DataPackage, DataONEObject, Package, SolrResult, ScienceMetadata,
 			 MetricsModel, DownloadButtonView, ProvChart, MetadataIndex, ExpandCollapseList, ProvStatement, PackageTable,
 			 AnnotatorView, CitationView, MetadataTemplate, DataSourceTemplate, PublishDoiTemplate,
 			 VersionTemplate, LoadingTemplate, ControlsTemplate, MetadataInfoIconsTemplate, UsageTemplate,
 			 DownloadContentsTemplate, AlertTemplate, EditMetadataTemplate, DataDisplayTemplate,
-			 MapTemplate, AnnotationTemplate, metaTagsHighwirePressTemplate, uuid, MetricView) {
+			 MapTemplate, AnnotationTemplate, metaTagsHighwirePressTemplate, uuid, MetricView, AnnotationView) {
 	'use strict';
 
 
@@ -300,6 +301,8 @@ define(['jquery',
                 viewRef.insertCopiables();
 
 								viewRef.setUpAnnotator();
+								viewRef.createAnnotationViews();
+
 							}
 						},
 						error: function(xhr, textStatus, errorThrown){
@@ -2574,6 +2577,23 @@ define(['jquery',
 
 			// Insert
 			document.head.insertAdjacentHTML("beforeend", hwpt);
+		},
+
+		createAnnotationViews: function(){
+			var annoEls = $(".annotation");
+			var newView;
+			var annotationSource;
+
+			for (var i = 0; i < annoEls.length; i++) {
+				annotationSource = annoEls[i];
+
+				newView = new AnnotationView({
+					termURI: $(annotationSource).data("uri"),
+					termLabel: $(annotationSource).data("label")
+				});
+
+				$(annoEls[i]).replaceWith(newView.render().el);
+			}
 		}
 	});
 
