@@ -15,8 +15,8 @@ define(['jquery', 'underscore', 'backbone'],
 
 			googleAnalyticsKey: null,
 
-			nodeId: null,
-
+			nodeId: 'urn:node:METAGRIL',
+			
 			searchMode: MetacatUI.mapKey ? 'map' : 'list',
 			searchHistory: [],
 			sortOrder: 'dateUploaded+desc',
@@ -64,7 +64,7 @@ define(['jquery', 'underscore', 'backbone'],
       editorSaveErrorMsgWithDraft: "Not all of your changes could be submitted, but a draft " +
         "has been saved which can be accessed by our support team. Please contact us.",
 
-			defaultAccessPolicy: [],
+			defaultAccessPolicy: [{ subject: "public", read: true, write: false, changePermission: false }],
 
 			baseUrl: window.location.origin || (window.location.protocol + "//" + window.location.host),
 			allowAccessPolicyChanges: true,
@@ -118,8 +118,8 @@ define(['jquery', 'underscore', 'backbone'],
 
 			// Metrics flags for the Dataset Landing Page
 			// Enable these flags to enable metrics display
-			displayDatasetMetrics: true,
-
+			displayDatasetMetrics: false,
+			
 			// Controlling individual functionality
 			// Only works if the parent flags displayDatasetMetrics is enabled
 			displayDatasetMetricsTooltip: true,
