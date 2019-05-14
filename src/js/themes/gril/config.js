@@ -1,10 +1,10 @@
-MetacatUI.theme = MetacatUI.theme || "default";
-MetacatUI.themeTitle = "Metacat Data Catalog";
+MetacatUI.theme = MetacatUI.theme || "gril";
+MetacatUI.themeTitle = "metaGRIL Data Catalog";
 MetacatUI.themeMap = 
 {
-	'*': {
-		// example overrides are provided here
-		//'views/AboutView' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/views/AboutView.js',
-		//'templates/navbar.html' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/templates/navbar.html'
-		}
+        '*': {
+                // example overrides are provided here
+                'templates/navbar.html' : 'themes/' + theme + '/templates/navbar.html',
+                'templates/footer.html' : 'themes/' + theme + '/templates/footer.html'
+                }
 };
