@@ -19,12 +19,19 @@ define(['jquery', 'underscore', 'backbone', 'text!templates/mainContent.html'],
 			'click #search_btn_main': 'triggerSearch',
 			'keypress #search_txt_main': 'triggerOnEnter'
 		},
-				
-		render: function () {			
+		
+		render: function () {
+	                this.$el.html(this.template({
+                	loggedIn:   MetacatUI.appUserModel.get("loggedIn")
+                	}));
+		},
+
+		
+		/*render: function () {			
 			this.$el.html(this.template());
 			
 			return this;
-		},	
+		},*/	
 		
 		triggerSearch: function() {
 			// alert the model that a search should be performed

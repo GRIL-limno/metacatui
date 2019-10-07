@@ -769,7 +769,7 @@ define(['underscore', 'jquery', 'backbone',
 	    renderDates: function(){
 
 	    	//Add a header
-	    	this.$(".section.dates").html( $(document.createElement("h2")).text("Dates") );
+	    	/*this.$(".section.dates").html( $(document.createElement("h2")).text("Dates") );*/
 
             _.each(this.model.get('temporalCoverage'), function(model){
 
@@ -852,7 +852,7 @@ define(['underscore', 'jquery', 'backbone',
          * Renders the Taxa section of the page
          */
 	    renderTaxa: function(){
-	    	this.$(".section.taxa").html($(document.createElement("h2")).text("Taxa"));
+	    	/*this.$(".section.taxa").html($(document.createElement("h2")).text("Taxa"));*/
 
 			var taxonomy = this.model.get('taxonCoverage');
 

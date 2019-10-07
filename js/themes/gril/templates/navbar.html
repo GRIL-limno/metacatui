@@ -1,7 +1,9 @@
-<div class="navbar" id="bg_image" data-image-count="9">
+<!--<div class="navbar" id="bg_image" data-image-count="9">-->
+<div class="navbar" id="bg_image" data-image-count="1">
   <div class="navbar-inner">
       <ul class="nav">
        <li class="logo home"> <a href="<%= MetacatUI.root || "/" %>"><img alt="GRIL" src="<%= MetacatUI.root %>/js/themes/gril/img/metagril_logo.png"></a></li>
+       <!--
        <li class="dropdown">
         	<a class="dropdown-toggle" data-toggle="dropdown">Data</a>
         	<ul class="dropdown-menu">
@@ -12,7 +14,6 @@
         	</ul>
         </li>
         <li><a href="<%= MetacatUI.root %>/about">About</a></li>
-        <!--
 	<li class="input input-append">
         	<form id="direct-search" action="#">
 	        	<label class="tooltip-this" data-title="Go directly to a dataset by pasting its full DOI or ID here.">Jump to:</label>
@@ -21,28 +22,31 @@
 	        </form>
         </li>
 	-->
-        <% if (loggedIn && username) {
-        	print(
-        	'<li class="dropdown">',
-				'<a href="" class="dropdown-toggle" data-toggle="dropdown">',
-					'<i class="icon icon-on-left icon-user"></i><i class="icon-caret-down"></i>',
-				'</a>',
-				'<ul class="dropdown-menu">',
-					'<li class="dropdown-header">', formattedName, '</li>',
-					'<li class="divider"></li>',
-					'<li><a href="' + MetacatUI.root + '/submit" class="show-new-editor">Submit data</a></li>',
-					'<li><a href="' + MetacatUI.root + '/profile/' + username + '">My Profile</a></li>',
-					'<li><a href="' + MetacatUI.root + '/data/my-data">My datasets</a></li>',
-					'<li class="divider"></li>',
-					'<li><a href="' + MetacatUI.root + '/signout">Sign out</a></li>',
-				'</ul>',
-			'</li>'
-        	);
-        } else {
-        	print(
-        		'<li id="SignIn" class="share-feature"><a href="' + MetacatUI.root + '/signin">Sign In</a></li>'
-        	);
-        } %>
+
+	<li><a href="<%= MetacatUI.root %>/data">Search Data</a></li>
+
+	<!-- Connexion ORCID uniquement selon le theme arctic -->
+
+	<% if (loggedIn) { %>
+		<li><a href="<%= MetacatUI.root %>/submit">Submit Data</a></li>
+        	<li class="dropdown minimal-nav">
+		<a href="#" class="dropdown-toggle user" data-toggle="dropdown"><i class="icon icon-user"></i>&nbsp;<%=formattedName%><b class="caret"></b></a>
+		<ul class="dropdown-menu">
+			<!--<li><a href="<%= MetacatUI.root %>/submit">Submit data</a></li>-->
+			<li><a href="<%= MetacatUI.root %>/profile/<%=username%>">My profile</a></li>
+			<li><a href="<%= MetacatUI.root %>/profile/<%=username%>/s=settings/s=groups">My groups</a></li>
+			<li><a href="<%= MetacatUI.root %>/data/my-data">My data sets</a></li>
+			<li><a href="<%= MetacatUI.root %>/signout">Sign out</a></li>
+		</ul>
+		</li>
+	<% } else { %>
+
+		<li class="minimal-nav">
+		<a href="<%=(MetacatUI.appModel.get('signInUrlOrcid') + window.location.href)%>">
+		<img src="<%= MetacatUI.root %>/img/orcid_64x64.png"/>&nbsp;Sign in with ORCID</a>
+		</li>
+
+	<%  } %>
 
       </ul>
   </div><!-- /.navbar-inner -->
