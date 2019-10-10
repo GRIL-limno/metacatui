@@ -5,6 +5,7 @@ define(["jquery",
         "models/Search",
         "models/Stats",
         "text!templates/alert.html",
+        "text!templates/loading.html",
         "text!templates/project/project.html",
         "views/project/ProjectHeaderView",
         "views/project/ProjectDataView",
@@ -13,7 +14,7 @@ define(["jquery",
         "views/StatsView",
         "views/project/ProjectLogosView"
     ],
-    function($, _, Backbone, Project, SearchModel, StatsModel, AlertTemplate, ProjectTemplate, ProjectHeaderView,
+    function($, _, Backbone, Project, SearchModel, StatsModel, AlertTemplate, LoadingTemplate, ProjectTemplate, ProjectHeaderView,
         ProjectDataView, ProjectSectionView, ProjectMembersView, StatsView, ProjectLogosView) {
         "use_strict";
         /* The ProjectView is a generic view to render
@@ -44,6 +45,8 @@ define(["jquery",
             template: _.template(ProjectTemplate),
             //A template to display a notification message
             alertTemplate: _.template(AlertTemplate),
+            //A template for displaying a loading message
+            loadingTemplate: _.template(LoadingTemplate),
 
             events: {
               "click #metrics-link" : "renderMetricsView"
@@ -94,9 +97,6 @@ define(["jquery",
                 });
                 this.headerView.render();
                 this.subviews.push(this.headerView);
-
-                // Create a Filters collection in the search model for all search constraints in this view
-                this.model.get("searchModel").set("filters", this.model.createFilters());
 
                 // Cache this model for later use
                 MetacatUI.projects = MetacatUI.projects || {};
@@ -204,6 +204,13 @@ define(["jquery",
                 //Switch to the active section tab
                 if( this.activeSection ){
                   this.$('#project-section-tabs a[href="#' + this.activeSection + '"]').tab("show");
+
+                  if( this.activeSection == "metrics" ){
+                    this.renderMetricsView();
+                  }
+                }
+                else{
+                  this.$(".project-section-view").first().data("view").postRender();
                 }
 
                 //Scroll to an inner-page link if there is one specified
@@ -266,15 +273,20 @@ define(["jquery",
                 return;
               }
 
+              //Add a loading message to the metrics tab since it can take a while for the metrics query to be sent
+              this.$("#metrics").html(this.loadingTemplate({
+                msg: "Getting metrics..."
+              }));
+
               //If the search results haven't been fetched yet, wait. We need the
               // facet counts for the metrics view.
-              if( !this.model.get("searchResults").models.length ){
+              if( !this.model.get("searchResults").length ){
                 this.listenToOnce( this.model.get("searchResults"), "sync", this.renderMetricsView );
                 return;
               }
 
               //Get all the facet counts from the search results collection
-              var facetCounts = this.model.get("searchResults").facetCounts,
+              var facetCounts = this.model.get("allSearchResults").facetCounts,
                   //Get the id facet counts
                   idFacets = facetCounts? facetCounts.id : [],
                   //Get the documents facet counts
