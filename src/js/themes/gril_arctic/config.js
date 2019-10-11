@@ -22,8 +22,11 @@ MetacatUI.themeMap =
 		'models/Map' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/models/Map.js',
 		'routers/router' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/routers/router.js',
 
-                'templates/dataPackageStart.html' : 'themes/gril/templates/dataPackageStart.html',		
+		/* GRIL Changes */
+                'templates/dataPackageStart.html' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/templates/dataPackageStart.html',
+                'templates/search.html' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/templates/search.html',
 
+		/* Metadata templates from theme gril */
                 'templates/metadata/metadataOverview.html' : 'themes/gril/templates/metadata/metadataOverview.html',
                 'templates/metadata/eml-people.html' : 'themes/gril/templates/metadata/eml-people.html',
                 'templates/metadata/dates.html' : 'themes/gril/templates/metadata/dates.html',

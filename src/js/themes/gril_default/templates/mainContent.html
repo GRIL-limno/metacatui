@@ -1,0 +1,45 @@
+<!-- <div class="container">
+	<h1 class="container">Find Data</h1>
+	<div class="center span12">
+		<input type="text" id="search_txt_main" placeholder="Example: invasive species" class="span10">
+		<a href="<%= MetacatUI.root %>/data" type="button" class="btn span1" id="search_btn_main"><i class="icon-search icon-large"></i></a>
+	</div>
+</div>
+
+NEW VERSION -->
+
+<center>
+<!--<h1>metaGRIL</h1>-->
+
+<style>
+
+.button {
+  background-color: #008CBA; /* Blue */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+</style>
+
+<img src="<%= MetacatUI.root %>/js/themes/gril/img/Logo_metaGRIL_V2.png" height=50% width=50% /><br><br>
+
+<a href="<%= MetacatUI.root %>/data"><button class="button">Search Data</button></a>&nbsp;&nbsp
+
+<% if (loggedIn) { %>
+<a href="<%= MetacatUI.root %>/submit"><button class="button">Submit Data</button></a>
+<%  } else { %>
+<a href="<%=(MetacatUI.appModel.get('signInUrlOrcid') + window.location.href)%>">
+<button class="button">Sign in with ORCID</button>
+<% } %>
+
+</h3>
+
+</center>
+
