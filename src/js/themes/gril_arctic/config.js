@@ -7,8 +7,12 @@ MetacatUI.themeMap =
 		'templates/navbar.html' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/templates/navbar.html',
 		'templates/featuredData.html' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/templates/featuredData.html',
 		'templates/footer.html' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/templates/footer.html',
-		'templates/mainContent.html' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/templates/mainContent.html',
-		'templates/altHeader.html' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/templates/altHeader.html',
+		/*'templates/mainContent.html' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/templates/mainContent.html',
+		'templates/altHeader.html' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/templates/altHeader.html',*/
+
+                'templates/mainContent.html' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/templates/mainContent_empty.html',
+                'templates/altHeader.html' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/templates/altHeader_knb.html',
+
 		'templates/defaultHeader.html' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/templates/defaultHeader.html',
 		'templates/userProfileMenu.html' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/templates/userProfileMenu.html',
 		'templates/publishDOI.html' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/templates/publishDOI.html',
@@ -18,21 +22,22 @@ MetacatUI.themeMap =
 		'templates/metadata.html' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/templates/metadata.html',
 		'templates/insertProgress.html' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/templates/insertProgress.html',
                 'templates/editorSubmitMessage.html' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/templates/editorSubmitMessage.html',
-		'models/AppModel' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/models/AppModel.js',
+		 'models/AppModel.js' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/models/AppModel.js',
+		/*'models/AppModel' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/models/AppModel.js',*/
 		'models/Map' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/models/Map.js',
-		'routers/router' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/routers/router.js',
+		/*'routers/router' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/routers/router.js',*/
 
 		/* GRIL Changes */
                 'templates/dataPackageStart.html' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/templates/dataPackageStart.html',
                 'templates/search.html' : MetacatUI.root + '/js/themes/' + MetacatUI.theme + '/templates/search.html',
 
 		/* Metadata templates from theme gril */
-                'templates/metadata/metadataOverview.html' : 'themes/gril/templates/metadata/metadataOverview.html',
-                'templates/metadata/eml-people.html' : 'themes/gril/templates/metadata/eml-people.html',
-                'templates/metadata/dates.html' : 'themes/gril/templates/metadata/dates.html',
-                'templates/metadata/locationsSection.html' : 'themes/gril/templates/metadata/locationsSection.html',
-                'templates/metadata/taxonomicCoverage.html' : 'themes/gril/templates/metadata/taxonomicCoverage.html',
-                'templates/metadata/EMLMethods.html' : 'themes/gril/templates/metadata/EMLMethods.html'
+                'templates/metadata/metadataOverview.html' : 'themes/gril_default/templates/metadata/metadataOverview.html',
+                'templates/metadata/eml-people.html' : 'themes/gril_default/templates/metadata/eml-people.html',
+                'templates/metadata/dates.html' : 'themes/gril_default/templates/metadata/dates.html',
+                'templates/metadata/locationsSection.html' : 'themes/gril_default/templates/metadata/locationsSection.html',
+                'templates/metadata/taxonomicCoverage.html' : 'themes/gril_default/templates/metadata/taxonomicCoverage.html',
+                'templates/metadata/EMLMethods.html' : 'themes/gril_default/templates/metadata/EMLMethods.html'
 
 		}
 };

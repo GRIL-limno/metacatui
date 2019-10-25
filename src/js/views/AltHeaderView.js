@@ -25,7 +25,9 @@ define(['jquery', 'underscore', 'backbone', 'text!templates/altHeader.html', 'te
 			// then render it
 			this.$el.hide();
 			if (headerType == "alt") {
-				this.$el.html(this.template());
+				this.$el.html(this.template({
+					loggedIn:   MetacatUI.appUserModel.get("loggedIn")
+			}));
 			} else {
 				this.$el.html(this.defaultTemplate());
 			}

@@ -274,7 +274,7 @@
 	box-sizing: border-box;
 }
 .header .nav li a.btn.btn-primary{
-	background-color: #19B36A;
+	background-color: #19B36A;	
 }
 .header .nav li a.btn.btn-primary:hover{
 	background-color: #146660;
@@ -334,14 +334,17 @@ footer {
      padding: 0px 20px 20px 20px;
  margin-top: 0px;
  color: #FDFDFD;
- background-color: #b8cad2;
+ /*background-color: #b8cad2;*/
+ backgroung-color: #ffffff;
  width: 100%;
  box-sizing: border-box;
  z-index: 2;
- height: 320px; /* Keeps the footer down */
+ /*height: 320px;*/ /* Keeps the footer down */
+ height: 100px;
 }
 #Content{
-	padding-bottom: 350px; /* Keeps footer down */
+	/*padding-bottom: 350px;*/ /* Keeps footer down */
+        padding-bottom: 20px; /* Keeps footer down */
 }
 footer ul{
 	list-style: none;
@@ -480,7 +483,9 @@ footer .logos a:hover, a:focus{
     }
 
     .btn-primary {
-       background-color: #19B36A;
+       /*background-color: #19B36A;*/
+       background-color: #0063A6;
+       /*font-size: 28px;*/
        border: 0px;
 	  color: #FFFFFF;
 	  background-image: none;
@@ -794,7 +799,9 @@ img[src*="gstatic.com/"], img[src*="googleapis.com/"]  {
       z-index: 290;
     }
     #Navbar .user {
-    	font-size: 14px;
+    	/*font-size: 14px;*/
+        font-size: 18px;
+	padding-top: 16px;
     }
     #Content{
     	padding-top: 118px;

@@ -48,7 +48,8 @@
   	}
   	.header .nav .dropdown-toggle.user{
   		font-size: .9em;
-  		max-width: 130px;
+  		/*max-width: 130px;*/
+                max-width: 260px;
   	}
   	#nav-trigger{
   		display: none;
@@ -82,6 +83,7 @@
 	.nav .dropdown-toggle .caret{
 		margin-top: 14px;
 		border-top-color: #1F254F;
+		margin-left: 5px;
 	}
   	.nav .dropdown-menu{
   	    box-shadow: none;

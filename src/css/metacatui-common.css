@@ -4535,7 +4535,9 @@ Editor View
 	margin-top: 5px;
 }
 .Editor .header .nav > li > a{
-	font-size: 1em;
+	/*font-size: 1em;*/
+	font-size: 1.3em;
+	padding-top: 15px;
 }
 .Editor .header .nav li a.btn{
 	font-size: .7em;

@@ -41,7 +41,7 @@ define(['jquery',
 					 		   "click textarea.copy" : "higlightInput",
 					 		   "focus textarea.copy" : "higlightInput",
 					 		 	  "click .open-chat" : "openChatWithMessage",
-					 		 "click .login.redirect" : "sendToLogin",
+				 		 "click .login.redirect" : "sendToLogin",
 					 	   "focus .jump-width-input" : "widenInput",
 					 	"focusout .jump-width-input" : "narrowInput"
 		},

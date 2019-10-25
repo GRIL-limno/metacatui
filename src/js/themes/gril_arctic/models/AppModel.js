@@ -11,12 +11,12 @@ define(['jquery', 'underscore', 'backbone'],
 			headerType: 'default',
 			title: MetacatUI.themeTitle || "Metacat Data Catalog",
 
-			emailContact: "support@arcticdata.io",
+			emailContact: "knb-help@nceas.ucsb.edu",
 
 			googleAnalyticsKey: null,
 
-			nodeId: null,
-
+			nodeId: 'urn:node:METAGRIL',
+			
 			searchMode: MetacatUI.mapKey ? 'map' : 'list',
 			searchHistory: [],
 			sortOrder: 'dateUploaded+desc',
@@ -61,22 +61,14 @@ define(['jquery', 'underscore', 'backbone'],
 
       //These error messages are displayed when the Editor encounters an error saving
       editorSaveErrorMsg: "Not all of your changes could be submitted.",
-      editorSaveErrorMsgWithDraft: "Not all of your changes could be submitted " +
-        "due to a technical error. But, we sent a draft of your edits to " +
-        "our support team, who will contact " +
-        "you via email as soon as possible about getting your data package submitted. ",
+      editorSaveErrorMsgWithDraft: "Not all of your changes could be submitted, but a draft " +
+        "has been saved which can be accessed by our support team. Please contact us.",
 
-			defaultAccessPolicy: [{
-
-				subject: "CN=arctic-data-admins,DC=dataone,DC=org",
-				read: true,
-				write: true,
-				changePermission: true
-			}],
-
-			allowAccessPolicyChanges: false,
+			// defaultAccessPolicy: [{ subject: "public", read: true, write: false, changePermission: false }],
+			defaultAccessPolicy: [{ subject: "public", read: true }],
 
 			baseUrl: window.location.origin || (window.location.protocol + "//" + window.location.host),
+			allowAccessPolicyChanges: true,
 			// the most likely item to change is the Metacat deployment context
 			context: '/metacat',
 			d1Service: '/d1/mn/v2',
@@ -89,50 +81,46 @@ define(['jquery', 'underscore', 'backbone'],
 			publishServiceUrl: null,
 			authServiceUrl: null,
 
-			queryServiceUrl: null,
+      queryServiceUrl: null,
 
       //If set to false, some parts of the app will send POST HTTP requests to the
       // Solr search index via the `/query/solr` DataONE API.
       // Set this configuration to true if using Metacat 2.10.2 or earlier
       disableQueryPOSTs: false,
 
-      defaultSearchFilters: ["all", "attribute", "creator", "dataYear", "pubYear", "id", "taxon", "spatial"],
+      defaultSearchFilters: ["all", "attribute", "documents", "creator", "dataYear", "pubYear", "id", "taxon", "spatial"],
 
-			metaServiceUrl: null,
+      metaServiceUrl: null,
 			metacatBaseUrl: null,
 			metacatServiceUrl: null,
 			objectServiceUrl: null,
-			formatsServiceUrl: null,
-			formatsUrl: "/formats",
-			resolveServiceUrl: null,
+      formatsServiceUrl: null,
+      formatsUrl: "/formats",
+			//grantsUrl: null,
 			//bioportalSearchUrl: null,
-			orcidBaseUrl: "https:/orcid.org",
 			//orcidSearchUrl: null,
 			//orcidBioUrl: null,
-			//annotatorUrl: null,
-			grantsUrl: null,
-			accountsUrl: null,
-			pendingMapsUrl: null,
-			accountMapsUrl: null,
-			groupsUrl: null,
 			//signInUrl: null,
 			signOutUrl: null,
 			signInUrlOrcid: null,
-			//signInUrlLdap: null,
+			signInUrlLdap: null,
 			tokenUrl: null,
-
-            mdqBaseUrl: "https://docker-ucsb-1.dataone.org:30443/quality",
-            // suidIds and suiteLables must be specified as a list, even if only one suite is available.
-            suiteIds: ["arctic.data.center.suite.1"],
-            suiteLabels: ["Arctic Data Center Conformance Suite v1.0"],
+			checkTokenUrl: null,
+			//annotatorUrl: null,
+			accountsUrl: null,
+			pendingMapsUrl: null,
+			accountsMapsUrl: null,
+			groupsUrl: null,
+			portalUrl: null,
+			mdqUrl: null,
 
 			// Metrics endpoint url
 			metricsUrl: 'https://logproc-stage-ucsb-1.test.dataone.org/metrics',
 
 			// Metrics flags for the Dataset Landing Page
 			// Enable these flags to enable metrics display
-			displayDatasetMetrics: true,
-
+			displayDatasetMetrics: false,
+			
 			// Controlling individual functionality
 			// Only works if the parent flags displayDatasetMetrics is enabled
 			displayDatasetMetricsTooltip: true,
@@ -162,13 +150,15 @@ define(['jquery', 'underscore', 'backbone'],
 			isJSONLDEnabled: true,
 
 			// A lookup map of project names to project seriesIds
-			projectsMap: {
-			    "DBO": "urn:node:93834148-30ce-420d-8d6d-b6690d93b9bc"
-			},
+			projectsMap: {},
 
 			// If true, then archived content is available in the search index.
 			// Set to false if this MetacatUI is using a Metacat version before 2.10.0
-			archivedContentIsIndexed: true
+			archivedContentIsIndexed: true,
+
+      bioportalAPIKey: null,
+			bioportalLookupCache: {},
+			showAnnotationIndicator: false
 		},
 
 		defaultView: "data",
@@ -189,18 +179,9 @@ define(['jquery', 'underscore', 'backbone'],
 			this.set('queryServiceUrl', this.get('baseUrl') + this.get('context') + this.get('d1Service') + '/query/solr/?');
 			this.set('metaServiceUrl', this.get('baseUrl') + this.get('context') + this.get('d1Service') + '/meta/');
 			this.set('objectServiceUrl', this.get('baseUrl') + this.get('context') + this.get('d1Service') + '/object/');
-			this.set('registryServiceUrl', this.get('baseUrl') + this.get('context') + '/cgi-bin/register-dataset.cgi');
-			this.set('ldapwebServiceUrl', this.get('baseUrl') + this.get('context') + '/cgi-bin/ldapweb.cgi');
 			this.set('metacatServiceUrl', this.get('baseUrl') + this.get('context') + '/metacat');
 
-            // Metadata quality report services
-            this.set('mdqSuitesServiceUrl', this.get("mdqBaseUrl") + "/suites/");
-            this.set('mdqRunsServiceUrl', this.get('mdqBaseUrl') + "/runs/");
-            this.set('mdqSuiteIds', this.get("suiteIds"));
-            this.set('mdqSuiteLabels', this.get("suiteLabels"));
-
-			//Set the NSF Award API proxy
-			if(typeof this.get("grantsUrl") != "undefined")
+			if(typeof this.get("grantsUrl") !== "undefined")
 				this.set("grantsUrl", "https://api.nsf.gov/services/v1/awards.json");
 
 			//DataONE CN API
@@ -226,33 +207,41 @@ define(['jquery', 'underscore', 'backbone'],
 				this.set("nodeServiceUrl", this.get("d1CNBaseUrl") + this.get("d1CNService") + "/node/");
 				this.set('resolveServiceUrl', this.get('d1CNBaseUrl') + this.get('d1CNService') + '/resolve/');
 
+				//Token URLs
+				if(typeof this.get("tokenUrl") != "undefined"){
+					this.set("portalUrl", this.get("d1CNBaseUrl") + "portal/");
+					this.set("tokenUrl",  this.get("portalUrl") + "token");
+
+					this.set("checkTokenUrl", this.get("d1CNBaseUrl") + this.get("d1CNService") + "/diag/subject");
+
+					//The sign-in and out URLs - allow these to be turned off by removing them in the defaults above (hence the check for undefined)
+					if(typeof this.get("signInUrl") !== "undefined")
+						this.set("signInUrl", this.get('portalUrl') + "startRequest?target=");
+					if(typeof this.get("signInUrlOrcid") !== "undefined")
+						this.set("signInUrlOrcid", this.get('portalUrl') + "oauth?action=start&target=");
+					if(typeof this.get("signInUrlLdap") !== "undefined")
+						this.set("signInUrlLdap", this.get('portalUrl') + "ldap?target=");
+					if(this.get('orcidBaseUrl'))
+						this.set('orcidSearchUrl', this.get('orcidBaseUrl') + '/v1.1/search/orcid-bio?q=');
+
+					if((typeof this.get("signInUrl") !== "undefined") || (typeof this.get("signInUrlOrcid") !== "undefined"))
+						this.set("signOutUrl", this.get('portalUrl') + "logout");
+
+				}
+
 				// Object format list
         if ( typeof this.get("formatsUrl") != "undefined" ) {
-            this.set("formatsServiceUrl",
-                this.get("d1CNBaseUrl") + this.get("d1CNService") + this.get("formatsUrl"));
+             this.set("formatsServiceUrl",
+             this.get("d1CNBaseUrl") + this.get("d1CNService") + this.get("formatsUrl"));
         }
 
-				//Authentication / portal URLs
-				this.set('portalUrl', this.get('d1CNBaseUrl') + 'portal/');
-				this.set('tokenUrl',  this.get('portalUrl') + 'token');
+				//ORCID search
+				if(typeof this.get("orcidBaseUrl") != "undefined")
+					this.set('orcidSearchUrl', this.get('orcidBaseUrl') + '/search/orcid-bio?q=');
 
-				//Annotator API
-				if(typeof this.get("annotatorUrl") !== "undefined")
-					this.set('annotatorUrl', this.get('d1CNBaseUrl') + 'portal/annotator');
-
-				//The sign-in and out URLs - allow these to be turned off by removing them in the defaults above (hence the check for undefined)
-				if(typeof this.get("signInUrl") !== "undefined"){
-					this.set("signInUrl", this.get('portalUrl') + "startRequest?target=");
-				}
-				if(typeof this.get("signInUrlOrcid") !== "undefined")
-					this.set("signInUrlOrcid", this.get('portalUrl') + "oauth?action=start&target=");
-				if(typeof this.get("signInUrlLdap") !== "undefined")
-					this.set("signInUrlLdap", this.get('portalUrl') + "ldap?target=");
-				if(this.get('orcidBaseUrl'))
-					this.set('orcidSearchUrl', this.get('orcidBaseUrl') + '/v1.1/search/orcid-bio?q=');
-				if((typeof this.get("signInUrl") !== "undefined") || (typeof this.get("signInUrlOrcid") !== "undefined"))
-					this.set("signOutUrl", this.get('portalUrl') + "logout");
-
+				//Turn the seriesId feature on
+				if(typeof this.get("useSeriesId") != "undefined")
+					this.set("useSeriesId", true);
 			}
 
 			//The package service for v2 DataONE API

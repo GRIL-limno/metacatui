@@ -1,0 +1,48 @@
+<header id="altHeader" class="row">
+	<section id="Slides" class="carousel slide">
+	  <div class="carousel-inner">
+	    <div class="active item">
+	      <img src="<%= MetacatUI.root %>/js/themes/gril_arctic/img_knb/Accueil_metaGRIL_V2.png" alt="" />
+	      <div class="container">
+	        <div class="carousel-caption center">
+		 <!-- <h1>metaGRIL: GRIL Data Catalog</h1>-->
+	          <!--<h1>Store, share, and collaborate.</h1>
+	          <p class="lead">Team up by sharing research data through metaGRIL. </p>--><br>
+             <a href="<%= MetacatUI.root %>/data" class="btn btn-primary" style="font-size:28px;">Search for data</a>&nbsp;&nbsp;
+
+		<% if (loggedIn) { %>
+			<a href="<%= MetacatUI.root %>/submit" class="btn btn-primary" style="font-size:28px;">&nbsp;&nbsp;Submit data&nbsp;&nbsp;</a>&nbsp;
+		<% } else { %>
+			<a href="<%=(MetacatUI.appModel.get('signInUrlOrcid') + window.location.href)%>" class="btn btn-primary" style="font-size:22px;">
+			<img src="<%= MetacatUI.root %>/img/orcid_64x64.png" height=28 width=28 style="margin-right:10px;">Sign in with ORCID</a>
+		<%  } %>
+
+                  <p class="lead">&nbsp;</p>
+	        </div>
+	      </div>
+	    </div>
+	    <!--<div class="item">
+	      <img src="<%= MetacatUI.root %>/js/themes/knb/img/slide_05.jpg" alt="" />
+	      <div class="container">
+	        <div class="carousel-caption center">
+	          <h1>Find and repurpose.</h1>
+	          <p class="lead">Drive your next meta analysis with data and partners through the KNB.</p>
+              <a href="<%= MetacatUI.root %>/submit" class="btn btn-primary">Submit data</a>
+	        </div>
+	      </div>
+	    </div>
+	    <div class="item">
+	      <img src="<%= MetacatUI.root %>/js/themes/knb/img/slide_03.jpg" alt="" />
+	      <div class="container">
+	        <div class="carousel-caption center">
+	          <h1>Run your own repository.</h1>
+	          <p class="lead">KNB software is free and open source.</p>
+              <a href="<%= MetacatUI.root %>/tools/metacat" class="btn btn-primary">Download tools</a>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	  <a class="left carousel-control" href="#Slides" data-slide="prev"><i class="icon-chevron-left"></i></a>
+	  <a class="right carousel-control" href="#Slides" data-slide="next"><i class="icon-chevron-right"></i></a>-->
+	</section>
+</header>

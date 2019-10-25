@@ -28,7 +28,8 @@ define(['jquery',
 		render: function () {			
 			MetacatUI.appModel.set('headerType', 'alt');
 						
-			this.$el.html('<section id="mainContent" /><section id="FeaturedData" />');			
+			this.$el.html('<section id="mainContent" /><section id="FeaturedData" />');
+
 			var maincontentView = new MainContentView();
 			maincontentView.setElement($('#mainContent')).render();
 			if ( maincontentView.postRender ) {
